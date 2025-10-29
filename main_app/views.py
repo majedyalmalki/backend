@@ -26,3 +26,25 @@ class PlantIndex(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PlantDetail(APIView):
+    serializer_class = PlantSerializer
+
+    def get(self, request, plant_id):
+        plant = get_object_or_404(Plant, id=plant_id)
+        serializer = self.serializer_class(plant)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, plant_id):
+        plant = get_object_or_404(Plant, id=plant_id)
+        serializer = self.serializer_class(plant, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, plant_id):
+        plant = get_object_or_404(Plant, id=plant_id)
+        plant.delete()
+        return Response({'success': True}, status=status.HTTP_200_OK)
