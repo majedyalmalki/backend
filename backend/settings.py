@@ -26,6 +26,11 @@ SECRET_KEY = 'django-insecure-l8hyr4hk=gk3iz8)ux@=gvr*)e+o8z$8*^7f#i$6n1qe&l!e(8
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ALLOW_ALL_ORIGINS=False
+CORS_ALLOW_HEADERS = '*'
+CORS_ALLOWED_ORIGINS=[
+    "http://localhost:5173"
+]
 
 
 # Application definition
@@ -53,12 +58,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
-CORS_ALLOW_ALL_ORIGINS=False
-CORS_ALLOW_HEADERS = '*'
-CORS_ALLOWED_ORIGINS=[
-    "http://localhost:5173"
-]
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -115,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Riyadh'
 
 USE_I18N = True
 
