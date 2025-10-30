@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PlantSerializer
-from .models import Plant
+from .serializers import PlantSerializer, PhotoSerializer
+from .models import Plant, Photo
 from django.shortcuts import get_object_or_404
 
 # Define the home view
@@ -48,3 +48,20 @@ class PlantDetail(APIView):
         plant = get_object_or_404(Plant, id=plant_id)
         plant.delete()
         return Response({'success': True}, status=status.HTTP_200_OK)
+
+
+
+class PhotoDetail(APIView):
+    serializer_class = PhotoSerializer
+
+    def post(self, request, plant_id):
+        data = request.data.copy()
+        data["plant"] = int(plant_id)
+
+        Photo.objects.filter(plant=plant_id).delete()
+
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(PlantSerializer(get_object_or_404(Plant, id=plant_id)).data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
