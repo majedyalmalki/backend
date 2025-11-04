@@ -1,5 +1,5 @@
 # import Home view from the views file
-from .views import Home, PlantIndex, PlantDetail, PhotoDetail, ReminderList, ReminderDetail, CreateUserView, LoginView, VerifyUserView, LocationView
+from .views import Home, PlantIndex, PlantDetail, PhotoDetail, ReminderList, ReminderDetail, CreateUserView, LoginView, VerifyUserView, LocationDetail, LocationIndex, AddLocationToPlant, RemoveLocationToPlant
 from django.urls import path
 
 urlpatterns = [
@@ -12,6 +12,8 @@ urlpatterns = [
     path('plants/<int:plant_id>/add-photo/', PhotoDetail.as_view(), name="create-photo"),
     path('plants/<int:plant_id>/reminders/', ReminderList.as_view(), name='reminder-list'),
     path('plants/<int:plant_id>/reminders/<int:reminder_id>/', ReminderDetail.as_view(), name='reminder-detail'),
-    path('plants/<int:plant_id>/locations/', LocationView.as_view(), name='plant_location'),
-    path('plants/<int:plant_id>/locations/<int:location_id>/', LocationView.as_view(), name='plant_location_detail'),
+    path('locations/', LocationIndex.as_view(), name='location-index'),
+    path('locations/<int:location_id>/', LocationDetail.as_view(), name='location-detail'),
+    path('plants/<int:plant_id>/associate-location/<int:location_id>/', AddLocationToPlant.as_view(), name='associate-location'),
+    path('plants/<int:plant_id>/remove-location/<int:location_id>/', RemoveLocationToPlant.as_view(), name='remove-location'),
 ]
