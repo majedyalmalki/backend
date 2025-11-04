@@ -31,7 +31,6 @@ class CreateUserView(generics.CreateAPIView):
 
 
 
-
 class LoginView(APIView):
 
     def post(self, request):
@@ -94,7 +93,6 @@ class PlantDetail(APIView):
     serializer_class = PlantSerializer
 
     def get(self, request, plant_id):
-        # plant = get_object_or_404(Plant, id=plant_id)
         plant_queryset = Plant.objects.get(id=plant_id)
         locations_plant_does_have_queryset = plant_queryset.locations.all()
         locations_plant_doesnt_have_queryset = Location.objects.filter(user=request.user).exclude(id__in=plant_queryset.locations.all().values_list('id'))
@@ -103,7 +101,6 @@ class PlantDetail(APIView):
             "locationsPlantHas": LocationSerializer(locations_plant_does_have_queryset, many=True).data,
             "locationsPlantDoesNotHave": LocationSerializer(locations_plant_doesnt_have_queryset, many=True).data,
         }, status=status.HTTP_200_OK)
-        #return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, plant_id):
         plant = get_object_or_404(Plant, id=plant_id)
@@ -171,11 +168,6 @@ class ReminderDetail(APIView):
 
 
 
-# class LocationIndex(generics.ListCreateAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     serializer_class = LocationSerializer
-#     queryset = Location.objects.all()
-    
 class LocationIndex(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = LocationSerializer
@@ -227,8 +219,6 @@ class LocationDetail(APIView):
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-
 class AddLocationToPlant(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -238,7 +228,6 @@ class AddLocationToPlant(APIView):
             location = get_object_or_404(Location, id=location_id)
             plant.locations.add(location)
             
-            # Refresh the locations after adding
             locations_plant_does_have = plant.locations.all()
             locations_plant_does_not_have = Location.objects.filter(user=request.user).exclude(id__in=locations_plant_does_have.values_list('id', flat=True))
 
@@ -248,7 +237,6 @@ class AddLocationToPlant(APIView):
             }, status=status.HTTP_200_OK)
         
         except Exception as err:
-            # Log the error
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class RemoveLocationToPlant(APIView):
@@ -260,7 +248,6 @@ class RemoveLocationToPlant(APIView):
             location = get_object_or_404(Location, id=location_id)
             plant.locations.remove(location)
             
-            # Refresh the locations after removing
             locations_plant_does_have = plant.locations.all()
             locations_plant_does_not_have = Location.objects.filter(user=request.user).exclude(id__in=locations_plant_does_have.values_list('id', flat=True))
 
@@ -271,5 +258,4 @@ class RemoveLocationToPlant(APIView):
             }, status=status.HTTP_200_OK)
         
         except Exception as err:
-            # Log the error
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
