@@ -93,5 +93,16 @@
     </tbody>
 </table>
 
+<br/><br/>
+<h1>Icebox Features🧊</h1>
+
+<h4>User profiles and role-based permissions 🧩</h4>
+<h4>Email and push notification system 📧</h4>
+<h4>Cloud-based image storage (AWS S3 / Cloudinary) ☁️</h4>
+<h4>Search and filter endpoints for plants and locations 🔍</h4>
+<h4>Weather API integration for smart care tips 🌤️</h4>
+<h4>Community API (posts, likes, comments) 👥</h4>
+<h4>Multi-language (English/Arabic) support 🌍</h4>
+
 <br />
-<a style="font-size: 20px" href="https://github.com/majedyalmalki/frontend">Frontend</a>
+----> <a style="font-size: 20px" href="https://github.com/majedyalmalki/frontend">Frontend</a> <----
