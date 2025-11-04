@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Plant, Photo, Reminder
+from .models import Plant, Photo, Reminder, Location
 from django.contrib.auth.models import User
 
 
@@ -8,7 +8,15 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = '__all__'
 
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
+
+
 class PlantSerializer(serializers.ModelSerializer):
+    locations = LocationSerializer(many=True, read_only=True, required=False)
     photo = PhotoSerializer(read_only=True)
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
