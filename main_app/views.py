@@ -8,8 +8,11 @@ from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 
 
-
-# User Registration
+# ======================================================================= #
+# ======================================================================= #
+#                           User Registration
+# ======================================================================= #
+# ======================================================================= #
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -28,9 +31,16 @@ class CreateUserView(generics.CreateAPIView):
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as err:
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# ========================================================================================================== #
 
 
 
+
+# ======================================================================= #
+# ======================================================================= #
+#                              User Login
+# ======================================================================= #
+# ======================================================================= #
 class LoginView(APIView):
 
     def post(self, request):
@@ -45,9 +55,16 @@ class LoginView(APIView):
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         except Exception as err:
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# ========================================================================================================== #
 
 
 
+
+# ======================================================================= #
+# ======================================================================= #
+#                              Verify User
+# ======================================================================= #
+# ======================================================================= #
 class VerifyUserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -61,16 +78,30 @@ class VerifyUserView(APIView):
                 return Response({"detail": "Failed to generate token.", "error": str(token_error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as err:
             return Response({"detail": "Unexpected error occurred.", "error": str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# ========================================================================================================== #
 
 
 
-# Define the home view
+
+# ======================================================================= #
+# ======================================================================= #
+#                              Home view
+# ======================================================================= #
+# ======================================================================= #
 class Home(APIView):
     def get(self, request):
         content = {'message': 'Welcome to the plants api home route!'}
         return Response(content)
+# ========================================================================================================== #
 
 
+
+
+# ======================================================================= #
+# ======================================================================= #
+#                              Plant Index
+# ======================================================================= #
+# ======================================================================= #
 class PlantIndex(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PlantSerializer
@@ -86,8 +117,16 @@ class PlantIndex(APIView):
             serializer.save(user_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# ========================================================================================================== #
 
 
+
+
+# ======================================================================= #
+# ======================================================================= #
+#                              Plant Detail
+# ======================================================================= #
+# ======================================================================= #
 class PlantDetail(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PlantSerializer
@@ -114,9 +153,16 @@ class PlantDetail(APIView):
         plant = get_object_or_404(Plant, id=plant_id)
         plant.delete()
         return Response({'success': True}, status=status.HTTP_200_OK)
+# ========================================================================================================== #
 
 
 
+
+# ======================================================================= #
+# ======================================================================= #
+#                              Photo Detail
+# ======================================================================= #
+# ======================================================================= #
 class PhotoDetail(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PhotoSerializer
@@ -132,10 +178,16 @@ class PhotoDetail(APIView):
             serializer.save()
             return Response(PlantSerializer(get_object_or_404(Plant, id=plant_id)).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# ========================================================================================================== #
 
 
 
 
+# ======================================================================= #
+# ======================================================================= #
+#                             Reminder List
+# ======================================================================= #
+# ======================================================================= #
 class ReminderList(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request, plant_id):
@@ -152,7 +204,16 @@ class ReminderList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# ========================================================================================================== #
 
+
+
+
+# ======================================================================= #
+# ======================================================================= #
+#                             Reminder Detail
+# ======================================================================= #
+# ======================================================================= #
 class ReminderDetail(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request, plant_id, reminder_id):
@@ -165,9 +226,16 @@ class ReminderDetail(APIView):
         reminder = get_object_or_404(Reminder, id=reminder_id, plant_id=plant_id)
         reminder.delete()
         return Response({"status":"success"},status=status.HTTP_200_OK)
+# ========================================================================================================== #
 
 
 
+
+# ======================================================================= #
+# ======================================================================= #
+#                            Location Index
+# ======================================================================= #
+# ======================================================================= #
 class LocationIndex(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = LocationSerializer
@@ -185,8 +253,16 @@ class LocationIndex(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# ========================================================================================================== #
 
 
+
+
+# ======================================================================= #
+# ======================================================================= #
+#                              Location Detail
+# ======================================================================= #
+# ======================================================================= #
 class LocationDetail(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = LocationSerializer
@@ -217,8 +293,16 @@ class LocationDetail(APIView):
             return Response({'success': True}, status=status.HTTP_200_OK)
         except Exception as err:
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# ========================================================================================================== #
 
 
+
+
+# ======================================================================= #
+# ======================================================================= #
+#                         Add Location to Plant
+# ======================================================================= #
+# ======================================================================= #
 class AddLocationToPlant(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -238,7 +322,16 @@ class AddLocationToPlant(APIView):
         
         except Exception as err:
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# ========================================================================================================== #
 
+
+
+
+# ======================================================================= #
+# ======================================================================= #
+#                      Remove Location from Plant
+# ======================================================================= #
+# ======================================================================= #
 class RemoveLocationToPlant(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -259,3 +352,4 @@ class RemoveLocationToPlant(APIView):
         
         except Exception as err:
             return Response({'error': str(err)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# ========================================================================================================== #
