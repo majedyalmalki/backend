@@ -1,7 +1,7 @@
 <h1>Back End</h1>
 
 <h3>ERD: 🖇️</h3>
-<img src="./assets/images/PlantsERD.svg">
+<img src="./assets/images/PlantERD.drawio.svg">
 
 <br />
 <br />
@@ -103,6 +103,35 @@
 <h4>Weather API integration for smart care tips 🌤️</h4>
 <h4>Community API (posts, likes, comments) 👥</h4>
 <h4>Multi-language (English/Arabic) support 🌍</h4>
+
+
+<br /><br />
+<h1>Tech stack ⚙️</h1>
+<ul>
+<li>Django</li>
+<li>Python</li>
+<li>PostgreSQL</li>
+</ul>
+
+<br /><br />
+<h1>Docker installation Instructions 💻</h1>
+
+```bash
+git clone https://github.com/majedyalmalki/backend
+cd backend
+
+docker-compose up -d
+```
+- <p>Then you should create and activate the virtual environment:</p>
+
+```bash
+pipenv shell
+```
+- <p>Last step run your server:</p>
+
+```bash
+python3 manage.py runserver
+```
 
 <br />
 ----> <a style="font-size: 20px" href="https://github.com/majedyalmalki/frontend">Frontend</a> <----
