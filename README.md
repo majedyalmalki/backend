@@ -1,3 +1,4 @@
+<h1>Plant project🌿</h1>
 <h1>Back End</h1>
 
 <h3>ERD: 🖇️</h3>
@@ -134,4 +135,6 @@ python3 manage.py runserver
 ```
 
 <br />
-----> <a style="font-size: 20px" href="https://github.com/majedyalmalki/frontend">Frontend</a> <----
+----> <a style="font-size: 20px" href="http://127.0.0.1:8000/">Backend site</a> <----
+<br />
+----> <a style="font-size: 20px" href="https://github.com/majedyalmalki/frontend">Frontend repo</a> <----
