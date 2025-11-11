@@ -1,4 +1,9 @@
 <h1>Plant project🌿</h1>
+<p>Full-stack web application designed to help users organize and care for their plants. Each user can create an account, add their plants, assign locations, upload photos, and set reminders for watering or maintenance.
+
+The app’s backend is built with Django REST Framework, handling authentication, CRUD operations, and user-specific data management. The frontend (React) connects through RESTful APIs to display plant details dynamically.
+
+It also includes relationship management — like linking and unlinking locations to plants — and secure token-based authentication to ensure that users can only access and modify their own data.</p>
 <h1>Back End</h1>
 
 <h3>ERD: 🖇️</h3>
