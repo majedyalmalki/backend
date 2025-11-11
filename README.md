@@ -3,7 +3,7 @@
 
 The app’s backend is built with Django REST Framework, handling authentication, CRUD operations, and user-specific data management. The frontend (React) connects through RESTful APIs to display plant details dynamically.
 
-It also includes relationship management — like linking and unlinking locations to plants — and secure token-based authentication to ensure that users can only access and modify their own data.</p>
+It also includes relationship management, like linking and unlinking locations to plants, and secure token-based authentication to ensure that users can only access and modify their own data.</p>
 <h1>Back End</h1>
 
 <h3>ERD: 🖇️</h3>
